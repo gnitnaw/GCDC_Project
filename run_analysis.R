@@ -13,25 +13,25 @@ X<-rbind(X_test,X_train)
 Y<-rbind(Y_test,Y_train)
 Z<-rbind(Z_test,Z_train)
 
-# 4. Appropriately labels the data set with descriptive variable names. 
+# 2. Appropriately labels the data set with descriptive variable names. 
 NewColNames<-as.character(NColumn$V2)
 names(X)<-NewColNames
 
-# 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+# 3. Extracts only the measurements on the mean and standard deviation for each measurement. 
 selectColumn<-grep("mean()",NewColNames, value="T", fixed="T")
 selectColumn<-c(selectColumn, grep("std()",NewColNames, value="T", fixed="T"))
 X2<-subset(X, select = selectColumn)
 
-# Remove unnecessary variable
+# 4. Remove unnecessary variable
 rm(X_test,Y_test,Z_test,X_train,Y_train,Z_train)
 
-# 3. Uses descriptive activity names to name the activities in the data set
+# 5. Uses descriptive activity names to name the activities in the data set
 Y_labels<-as.character(Y_labels$V2)
 Activity<-Y_labels[as.numeric(Y$V1)]
 Subject<-as.numeric(Z$V1)
 XYZ<-cbind(X2,Activity,Subject)
 
-# 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+# 6. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 # tidy1 is the tidy data set with the average of each variable for each activity
 tidy1=data.frame(row.names=names(XYZ)[1:(length(names(XYZ))-2)])
 for (i in Y_labels) {
