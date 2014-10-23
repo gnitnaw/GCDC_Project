@@ -11,11 +11,16 @@ How to use the code "run_analysis.R"
 
 1. Please download the data for the project into your work directory:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
 2. Extract (unzip) this data in the same work directory, and you will find that a new directory "UCI HAR Dataset" is created.
+
 3. Copy my code "run_analysis.R" in your work directory
+
 4. Launch your R (or R Studio) and use getwd() command to check if your work directory is the same as the one you put the code "run_analysis.R" and the data "UCI HAR Dataset". If not, use setwd("your_work_directory") to change.
+
 5. In R, execute:
    source("run_analysis.R")
+
 6. The you will find three more files "tidyData_Activity.txt", "tidyData_Subject.txt", and "tidyData_All.txt" are generated in the same directory. These files are:
 - tidyData_Subject.txt: average of each variable for each subject (the columns Suject_1 - Subject_30 indicate different subjects)
 - tidyData_Activity.txt: average of each variable for each activity (the columns WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
@@ -30,12 +35,19 @@ How this code "run_analysis.R" works
 - The data are separated into "test" part (X_test.txt) and "train" part (X_train.txt), and each column indicates different features (features.txt); for each part was taken by 30 subjects who were performing six kinds of activities (activity_labels.txt); the information of activities (y_test.txt,y_train.txt) and subjects (subject_test.txt, subject_train.txt) also have to be included in order to get the results corresponding to different activities/subjects.
 
 X_test<-read.table("./UCI HAR Dataset/test/X_test.txt")
+
 X_train<-read.table("./UCI HAR Dataset/train/X_train.txt")
+
 Y_test<-read.table("./UCI HAR Dataset/test/y_test.txt")
+
 Y_train<-read.table("./UCI HAR Dataset/train/y_train.txt")
+
 Z_test<-read.table("./UCI HAR Dataset/test/subject_test.txt")
+
 Z_train<-read.table("./UCI HAR Dataset/train/subject_train.txt")
+
 Y_labels<-read.table("./UCI HAR Dataset/activity_labels.txt")
+
 NColumn<-read.table("./UCI HAR Dataset/features.txt")
 
 2) Merges the training and the test sets to create one data set (we will combine then later)
