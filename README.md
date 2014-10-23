@@ -1,13 +1,14 @@
 GCDC_Project
-============
+
 Getting and Cleaning Data Course Project
 
 In this README file, I will explain to you :
 - How to use the code "run_analysis.R"
 - How this code "run_analysis.R" works.
-============
+
+
 How to use the code "run_analysis.R"
-===
+
 1. Please download the data for the project into your work directory:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 2. Extract (unzip) this data in the same work directory, and you will find that a new directory "UCI HAR Dataset" is created.
@@ -22,9 +23,9 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 7. You will also find there are several variables in the environments. In these variables, tidy1, tidy2, and tidyAll represent the data in tidyData_Activity.txt, tidyData_Subject.txt, and tidyData_All.txt.
 
-============
+
 How this code "run_analysis.R" works
-===
+
 1) Read necessary files
 - The data are separated into "test" part (X_test.txt) and "train" part (X_train.txt), and each column indicates different features (features.txt); for each part was taken by 30 subjects who were performing six kinds of activities (activity_labels.txt); the information of activities (y_test.txt,y_train.txt) and subjects (subject_test.txt, subject_train.txt) also have to be included in order to get the results corresponding to different activities/subjects.
 
