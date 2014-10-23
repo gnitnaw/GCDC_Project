@@ -2,7 +2,7 @@ The original data was taken by 30 subjects who were performing six kinds of acti
 
 The analysis code run_analysis.R will generate 3 tidy data sets, which provide the average of each variable (features, will be explained later) for each activity and each subject.
 tidyData_Subject.txt: average of each variable for each subject (the columns Suject_1 - Subject_30 indicate different subjects)
-tidyData_Activity.txt: average of each variable for each activity (the columns)
+tidyData_Activity.txt: average of each variable for each activity (the columns).
 tidyData_All.txt : the combination of tidyData_Subject.txt and tidyData_Activity.txt
 
 Each row in the tidy data set represents different features. 
