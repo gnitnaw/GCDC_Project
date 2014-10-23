@@ -10,7 +10,6 @@ In this README file, I will explain to you :
 How to use the code "run_analysis.R"
 
 1. Please download the data for the project into your work directory:
-
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 2. Extract (unzip) this data in the same work directory, and you will find that a new directory "UCI HAR Dataset" is created.
