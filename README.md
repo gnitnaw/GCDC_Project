@@ -72,8 +72,14 @@ Activity<-Y_labels[as.numeric(Y$V1)]
 Subject<-as.numeric(Z$V1)
 XYZ<-cbind(X2,Activity,Subject)
 
-# 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-# tidy1 is the tidy data set with the average of each variable for each activity
+7. From the data set in step 6, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+In order to make the data set more clear, I put the average of each variable for each activity in tidy1, the average of each variable for each subject in tidy2.
+tidyAll is the combination of tidy1 and tidy2.
+Each column is the result from different activity/subject.
+The average values of each variable(tBodyAcc-mean()-X,..etc.) are listed in each rows (each row represents one variable).
+I use a for loop to get the average of each variable in different activity/subject and then combine the results together.
+For tidy2, I also rename the column to Subject_1~Subject_30 to indicate the subjects.
+
 tidy1=data.frame(row.names=names(XYZ)[1:(length(names(XYZ))-2)])
 for (i in Y_labels) {
     XYZ2<-subset(XYZ,Activity==i,select=-c(Activity,Subject))
@@ -81,7 +87,6 @@ for (i in Y_labels) {
 }
 names(tidy1)<-Y_labels
 
-# tidy2 is the tidy data set with the average of each variable for each subject
 tidy2=data.frame(row.names=names(XYZ)[1:(length(names(XYZ))-2)])
 nLabel=c()
 for (i in c(1:30)) {
@@ -91,9 +96,10 @@ for (i in c(1:30)) {
 }
 names(tidy2)<-nLabel
 
-# tidyAll is the combination of tidy1 and tidy2
+
 tidyAll<-cbind(tidy1,tidy2)
 
+8. Output them to text file without the row names
 write.table(tidy1,file="tidyData_Activity.txt", row.name=FALSE)
 write.table(tidy2,file="tidyData_Subject.txt", row.name=FALSE)
 write.table(tidyAll,file="tidyData_All.txt", row.name=FALSE)
