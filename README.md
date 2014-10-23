@@ -7,6 +7,7 @@ In this README file, I will explain to you :
 - How this code "run_analysis.R" works.
 
 How to use the code "run_analysis.R"
+===
 1. Please download the data for the project into your work directory:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 2. Extract (unzip) this data in the same work directory, and you will find that a new directory "UCI HAR Dataset" is created.
@@ -23,7 +24,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 
 How this code "run_analysis.R" works
-1. Read necessary files
+1) Read necessary files
 - The data are separated into "test" part (X_test.txt) and "train" part (X_train.txt), and each column indicates different features (features.txt); for each part was taken by 30 subjects who were performing six kinds of activities (activity_labels.txt); the information of activities (y_test.txt,y_train.txt) and subjects (subject_test.txt, subject_train.txt) also have to be included in order to get the results corresponding to different activities/subjects.
 
 X_test<-read.table("./UCI HAR Dataset/test/X_test.txt")
@@ -35,20 +36,20 @@ Z_train<-read.table("./UCI HAR Dataset/train/subject_train.txt")
 Y_labels<-read.table("./UCI HAR Dataset/activity_labels.txt")
 NColumn<-read.table("./UCI HAR Dataset/features.txt")
 
-2. Merges the training and the test sets to create one data set (we will combine then later)
+2) Merges the training and the test sets to create one data set (we will combine then later)
 
 X<-rbind(X_test,X_train) -- All measurements
 Y<-rbind(Y_test,Y_train) -- Activity information
 Z<-rbind(Z_test,Z_train) -- Subject information
 
 
-3. Appropriately labels the data set with descriptive variable names.
+3) Appropriately labels the data set with descriptive variable names.
 We have to convert NColumn (data.frame) into another vector(NewColNames) in order to change the column names of X.
 
 NewColNames<-as.character(NColumn$V2)
 names(X)<-NewColNames
 
-4. Extracts only the measurements on the mean and standard deviation for each measurement. 
+4) Extracts only the measurements on the mean and standard deviation for each measurement. 
 According to features_info.txt, the keywords "mean()" and "std()" are what we need.
 So we have to search the elements in NewColNames which contains these two keywords and put the results in the vector (selectColumn), and make a subset of X according to selectColumn.
 Remark: we have to set value="T", fixed="T" in order to avoid the variables we don't need (ex:gravityMean, meanFreq())
@@ -57,11 +58,11 @@ selectColumn<-grep("mean()",NewColNames, value="T", fixed="T")
 selectColumn<-c(selectColumn, grep("std()",NewColNames, value="T", fixed="T"))
 X2<-subset(X, select = selectColumn)
 
-5. Remove unnecessary variable. You can remove this line if you still need these variables.
+5) Remove unnecessary variable. You can remove this line if you still need these variables.
 
 rm(X_test,Y_test,Z_test,X_train,Y_train,Z_train)
 
-6. Uses descriptive activity names to name the activities in the data set
+6) Uses descriptive activity names to name the activities in the data set
 Here we convert the label of activities (1,2,3,4,5,or 6) from Y into the name of activity (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) and combine with X.
 Notice that you have to convert the data.frame format into vector (it's easier).
 Then we can combine Z with X. 
@@ -72,7 +73,7 @@ Activity<-Y_labels[as.numeric(Y$V1)]
 Subject<-as.numeric(Z$V1)
 XYZ<-cbind(X2,Activity,Subject)
 
-7. From the data set in step 6, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+7) From the data set in step 6, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 In order to make the data set more clear, I put the average of each variable for each activity in tidy1, the average of each variable for each subject in tidy2.
 tidyAll is the combination of tidy1 and tidy2.
 Each column is the result from different activity/subject.
@@ -99,7 +100,7 @@ names(tidy2)<-nLabel
 
 tidyAll<-cbind(tidy1,tidy2)
 
-8. Output them to text file without the row names
+8) Output them to text file without the row names
 write.table(tidy1,file="tidyData_Activity.txt", row.name=FALSE)
 write.table(tidy2,file="tidyData_Subject.txt", row.name=FALSE)
 write.table(tidyAll,file="tidyData_All.txt", row.name=FALSE)
