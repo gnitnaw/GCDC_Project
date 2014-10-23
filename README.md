@@ -86,7 +86,7 @@ rm(X_test,Y_test,Z_test,X_train,Y_train,Z_train)
 
 
 6) Uses descriptive activity names to name the activities in the data set
-Here we convert the label of activities (1,2,3,4,5,or 6) from Y into the name of activity (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) and combine with X.
+Here we convert the label of activities (1-6) from Y into the name of activity (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) and combine with X.
 Notice that you have to convert the data.frame format into vector (it's easier).
 Then we can combine Z with X. 
 Now XYZ contains all information (All measurements, Activity, Subject).
