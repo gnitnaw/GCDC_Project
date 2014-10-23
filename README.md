@@ -10,6 +10,7 @@ In this README file, I will explain to you :
 How to use the code "run_analysis.R"
 
 1. Please download the data for the project into your work directory:
+
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 2. Extract (unzip) this data in the same work directory, and you will find that a new directory "UCI HAR Dataset" is created.
@@ -50,10 +51,13 @@ Y_labels<-read.table("./UCI HAR Dataset/activity_labels.txt")
 
 NColumn<-read.table("./UCI HAR Dataset/features.txt")
 
+
 2) Merges the training and the test sets to create one data set (we will combine then later)
 
 X<-rbind(X_test,X_train) -- All measurements
+
 Y<-rbind(Y_test,Y_train) -- Activity information
+
 Z<-rbind(Z_test,Z_train) -- Subject information
 
 
@@ -61,7 +65,9 @@ Z<-rbind(Z_test,Z_train) -- Subject information
 We have to convert NColumn (data.frame) into another vector(NewColNames) in order to change the column names of X.
 
 NewColNames<-as.character(NColumn$V2)
+
 names(X)<-NewColNames
+
 
 4) Extracts only the measurements on the mean and standard deviation for each measurement. 
 According to features_info.txt, the keywords "mean()" and "std()" are what we need.
@@ -69,12 +75,16 @@ So we have to search the elements in NewColNames which contains these two keywor
 Remark: we have to set value="T", fixed="T" in order to avoid the variables we don't need (ex:gravityMean, meanFreq())
 
 selectColumn<-grep("mean()",NewColNames, value="T", fixed="T")
+
 selectColumn<-c(selectColumn, grep("std()",NewColNames, value="T", fixed="T"))
+
 X2<-subset(X, select = selectColumn)
+
 
 5) Remove unnecessary variable. You can remove this line if you still need these variables.
 
 rm(X_test,Y_test,Z_test,X_train,Y_train,Z_train)
+
 
 6) Uses descriptive activity names to name the activities in the data set
 Here we convert the label of activities (1,2,3,4,5,or 6) from Y into the name of activity (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) and combine with X.
@@ -83,11 +93,15 @@ Then we can combine Z with X.
 Now XYZ contains all information (All measurements, Activity, Subject).
 
 Y_labels<-as.character(Y_labels$V2)
+
 Activity<-Y_labels[as.numeric(Y$V1)]
+
 Subject<-as.numeric(Z$V1)
+
 XYZ<-cbind(X2,Activity,Subject)
 
-7) From the data set in step 6, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+7) From the data set in step 6), creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 In order to make the data set more clear, I put the average of each variable for each activity in tidy1, the average of each variable for each subject in tidy2.
 tidyAll is the combination of tidy1 and tidy2.
 Each column is the result from different activity/subject.
@@ -96,25 +110,38 @@ I use a for loop to get the average of each variable in different activity/subje
 For tidy2, I also rename the column to Subject_1~Subject_30 to indicate the subjects.
 
 tidy1=data.frame(row.names=names(XYZ)[1:(length(names(XYZ))-2)])
+
 for (i in Y_labels) {
+
     XYZ2<-subset(XYZ,Activity==i,select=-c(Activity,Subject))
+    
     tidy1<-cbind(tidy1,sapply(XYZ2,mean))
+    
 }
+
 names(tidy1)<-Y_labels
 
 tidy2=data.frame(row.names=names(XYZ)[1:(length(names(XYZ))-2)])
+
 nLabel=c()
+
 for (i in c(1:30)) {
+
     XYZ2<-subset(XYZ,Subject==i,select=-c(Activity,Subject))
+    
     tidy2<-cbind(tidy2,sapply(XYZ2,mean))
+    
     nLabel<-c(nLabel, paste("Subject_",as.character(i),sep=""))
 }
 names(tidy2)<-nLabel
 
-
 tidyAll<-cbind(tidy1,tidy2)
 
+
 8) Output them to text file without the row names
+
 write.table(tidy1,file="tidyData_Activity.txt", row.name=FALSE)
+
 write.table(tidy2,file="tidyData_Subject.txt", row.name=FALSE)
+
 write.table(tidyAll,file="tidyData_All.txt", row.name=FALSE)
