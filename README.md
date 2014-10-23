@@ -10,5 +10,7 @@ In this README file, I will explain to you :
 ============
 How to use the code "run_analysis.R"
 
+1. Please find the data for the project: 
+2. 
 ============
 How this code "run_analysis.R" works
