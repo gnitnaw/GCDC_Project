@@ -6,7 +6,7 @@ In this README file, I will explain to you :
 - How to use the code "run_analysis.R"
 - How this code "run_analysis.R" works.
 
-
+-------------------------------
 How to use the code "run_analysis.R"
 
 1. Please download the data for the project into your work directory:
