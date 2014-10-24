@@ -28,7 +28,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 7. You will also find there are several variables in the environments. In these variables, tidy1, tidy2, and tidyAll represent the data in tidyData_Activity.txt, tidyData_Subject.txt, and tidyData_All.txt.
 
-
+-----------------------
 How this code "run_analysis.R" works
 
 1) Read necessary files
